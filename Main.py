@@ -1,6 +1,6 @@
 from tkinter import *
 import os
-
+import platform
 
 ### FUNCTION TO KILL
 def stopProg(e):
@@ -27,8 +27,12 @@ def ts_exists(timesheet):
 	def edit(event, ts):
 		win.destroy()
 		root.destroy()
-		os.system("python Edit.py "+'"'+ts+'"')
-
+		op_s = platform.system()
+		print(op_s)
+		if op_s == "Windows":
+			os.system("python Edit.py "+'"'+ts+'"')
+		elif op_s == "Linux":
+			os.system("python3.4 Edit.py "+'"'+ts+'"')
 	### CREATE AND CENTER POPUP WINDOW
 	win = Toplevel()
 	win.title("Timesheet Found")
@@ -61,14 +65,20 @@ def ts_no_exist(timesheet, case):
 	def edit(event, ts):
 		pop.destroy() 
 		root.destroy()
-		os.system("python Create.py "+'"'+ts+'" '+case.upper())
 		
+		op_s = platform.system()
+		print(op_s)
+		if op_s == "Windows":
+			os.system("python Edit.py "+'"'+ts+'"')
+		elif op_s == "Linux":
+			os.system("python3.4 Edit.py "+'"'+ts+'"')
+
 	### CREATE AND CENTER POPUP WINDOW
 	pop = Toplevel()
 	pop.title("Timesheet Doesn't Exist")
 	center(pop, 250, 125)
 	
-	### THIS LINE IS A TOTAL NO-GO ---- ???? KEEPS ON TOP?? ...wtf
+	## THIS LINE IS A TOTAL NO-GO ---- ???? KEEPS ON TOP?? ...wtf
 	pop.wm_attributes('-topmost', 1)
 
 	### LABELS
